@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Danish Salary Calculator</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Mindster Salary Calculator</h1>
+
+            <div class="input-group">
+                <label for="hourlyRate"
+                    >Total Hourly Rate (DKK, includes company pension):</label
+                >
+                <input type="number" id="hourlyRate" value="0" />
+            </div>
+
+            <div class="input-group">
+                <label for="pensionPercent"
+                    >Employee Pension Contribution (%):</label
+                >
+                <input type="number" id="pensionPercent" value="0" />
+            </div>
+
+            <div class="input-group">
+                <label for="companyPensionPercent"
+                    >Company Pension Contribution (% of hourly rate):</label
+                >
+                <input type="number" id="companyPensionPercent" value="0" />
+            </div>
+
+            <div class="input-group">
+                <label for="taxPercent">Tax Rate (%):</label>
+                <input type="number" id="taxPercent" value="0" />
+            </div>
+
+            <div class="input-group checkbox-group">
+                <input type="checkbox" id="churchTaxEnabled" checked />
+                <label for="churchTaxEnabled">Include Church Tax (0.8%)</label>
+            </div>
+
+            <div class="results">
+                <h2 style="display: flex; align-items: center; gap: 0.5rem">
+                    Results
+                    <button
+                        id="infoButton"
+                        class="info-button"
+                        title="How calculations work"
+                    >
+                        ?
+                    </button>
+                </h2>
+                <p>
+                    Expected Net Salary for
+                    <span id="currentMonthName"></span> (<span
+                        id="currentMonthWorkdays"
+                        >-</span
+                    >
+                    workdays):
+                    <span id="currentMonthSalary">-</span>
+                </p>
+                <p>
+                    Expected Net Salary for
+                    <span id="previousMonthName"></span>
+                    (<span id="previousMonthWorkdays">-</span> workdays):
+                    <span id="previousMonthSalary">-</span>
+                </p>
+                <p>
+                    Total Monthly Gross (before any deductions):
+                    <span id="totalCompensation">-</span>
+                </p>
+                <p>
+                    Total Tax (<span id="currentMonthNameTax"></span>):
+                    <span id="taxLayer">-</span>
+                </p>
+                <p>
+                    Pension Contribution (<span
+                        id="currentMonthNamePension"
+                    ></span
+                    >):
+                    <span id="pensionAmount">-</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Modal for calculation explanation -->
+        <div id="explanationModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>How the Salary Calculation Works</h3>
+                <div class="modal-explanation">
+                    <p></p>
+                    <p>
+                        <strong>Step 1:</strong> Calculate the total gross
+                        salary based on:
+                    </p>
+                    <ul>
+                        <li>
+                            Working days: <span id="modalWorkdays">0</span> days
+                            this month (weekdays only)
+                        </li>
+                        <li>Standard Danish workday: 7.4 hours</li>
+                        <li>
+                            Your hourly rate:
+                            <span id="modalHourlyRate">0</span> DKK
+                        </li>
+                        <li>
+                            Total gross before deductions:
+                            <span id="modalTotalGross">0</span> DKK
+                        </li>
+                    </ul>
+
+                    <p>
+                        <strong>Step 2:</strong> Deduct company pension
+                        contribution
+                    </p>
+                    <ul>
+                        <li>This is part of your total compensation package</li>
+                        <li>
+                            Company pension:
+                            <span id="modalCompanyPension">0</span>% =
+                            <span id="modalCompanyPensionAmount">0</span> DKK
+                        </li>
+                        <li>
+                            Gross salary after company pension:
+                            <span id="modalRemainingGross">0</span> DKK
+                        </li>
+                    </ul>
+
+                    <p>
+                        <strong>Step 3:</strong> Calculate AM-bidrag (Labor
+                        Market Contribution)
+                    </p>
+                    <ul>
+                        <li>
+                            AM-bidrag: 8% of gross salary =
+                            <span id="modalAMBidrag">0</span> DKK
+                        </li>
+                    </ul>
+
+                    <p>
+                        <strong>Step 4:</strong> Calculate employee pension
+                        contribution
+                    </p>
+                    <ul>
+                        <li>
+                            Employee pension:
+                            <span id="modalEmployeePension">0</span>% =
+                            <span id="modalEmployeePensionAmount">0</span> DKK
+                        </li>
+                        <li>
+                            Taxable income (after AM-bidrag and pension):
+                            <span id="modalTaxableIncome">0</span> DKK
+                        </li>
+                    </ul>
+
+                    <p><strong>Step 5:</strong> Apply tax deductions</p>
+                    <ul>
+                        <li>
+                            Personal allowance (Personfradrag): 4300 DKK/month
+                            (2025)
+                        </li>
+                        <li>
+                            Employment deduction (Beskæftigelsesfradrag): 10.65%
+                            of income after AM-bidrag (max 43,100 DKK/year)
+                        </li>
+                        <li>
+                            Job deduction (Jobfradrag): 4.5% of income after
+                            AM-bidrag (max 2,700 DKK/year)
+                        </li>
+                    </ul>
+
+                    <p><strong>Step 6:</strong> Calculate taxes</p>
+                    <ul>
+                        <li>
+                            Income tax rate: <span id="modalTaxRate">37</span>%
+                        </li>
+                        <li id="modalChurchTaxItem">Church tax: 0.8%</li>
+                    </ul>
+
+                    <p>
+                        <strong>Step 7:</strong> Calculate tax savings from
+                        deductions
+                    </p>
+                    <ul>
+                        <li>
+                            Tax savings from Personfradrag:
+                            <span id="modalPersonfradragValue">0</span> DKK
+                        </li>
+                        <li>
+                            Tax savings from Beskæftigelsesfradrag:
+                            <span id="modalBeskaeftigelsesfradragValue">0</span>
+                            DKK
+                        </li>
+                        <li>
+                            Tax savings from Jobfradrag:
+                            <span id="modalJobfradragValue">0</span> DKK
+                        </li>
+                    </ul>
+
+                    <p><strong>Step 8:</strong> Calculate final net salary</p>
+                    <ul>
+                        <li>
+                            Total taxes: <span id="modalTotalTaxes">0</span> DKK
+                        </li>
+                        <li>
+                            Net salary (take-home pay):
+                            <span id="modalNetSalary">0</span> DKK
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
