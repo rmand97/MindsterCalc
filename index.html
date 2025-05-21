@@ -3,43 +3,46 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Danish Salary Calculator</title>
+        <title>MindsterCalc</title>
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <div class="container">
             <h1>Mindster Salary Calculator</h1>
 
+            <div class="input-section">
             <div class="input-group">
                 <label for="hourlyRate"
-                    >Total Hourly Rate (DKK, includes company pension):</label
+                    >Total Hourly Rate (DKK, includes company pension)</label
                 >
                 <input type="number" id="hourlyRate" value="0" />
             </div>
 
             <div class="input-group">
                 <label for="pensionPercent"
-                    >Employee Pension Contribution (%):</label
+                    >Employee Pension Contribution (%)</label
                 >
                 <input type="number" id="pensionPercent" value="0" />
             </div>
 
+
             <div class="input-group">
-                <label for="companyPensionPercent"
-                    >Company Pension Contribution (% of hourly rate):</label
-                >
-                <input type="number" id="companyPensionPercent" value="0" />
+                <label for="taxPercent">Tax Rate (%)</label>
+                <input type="number" id="taxPercent" value="0" />
             </div>
 
             <div class="input-group">
-                <label for="taxPercent">Tax Rate (%):</label>
-                <input type="number" id="taxPercent" value="0" />
+                <label for="companyPensionPercent"
+                    >Company Pension Contribution (%)</label
+                >
+                <input type="number" id="companyPensionPercent" value="0" />
             </div>
 
             <div class="input-group checkbox-group">
                 <input type="checkbox" id="churchTaxEnabled" checked />
                 <label for="churchTaxEnabled">Include Church Tax (0.8%)</label>
             </div>
+            </div> <!-- Close input-section -->
 
             <div class="results">
                 <h2 style="display: flex; align-items: center; gap: 0.5rem">
@@ -53,7 +56,7 @@
                     </button>
                 </h2>
                 <p>
-                    Total Monthly Gross (before any deductions):
+                    Total Monthly Gross:
                     <span id="totalCompensation">-</span>
                 </p>
                 <p>
@@ -82,10 +85,16 @@
                     >):
                     <span id="pensionAmount">-</span>
                 </p>
-            </div>
+            </ul>
+            <footer>
+                <p>Made by: Rolf Malthe Andersen</p>
+                <p>Contact: rolf.m.andersen@twoday.com</p>
+                <p><a href="https://github.com/rmand97/MindsterCalc" target="_blank">GitHub</a></p>
+            </footer>
         </div>
+    </div>
 
-        <!-- Modal for calculation explanation -->
+    <!-- Modal for calculation explanation -->
         <div id="explanationModal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>
@@ -212,8 +221,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+    </div>
 
+    <!-- Modal for calculation explanation -->
+        <div id="explanationModal" class="modal">
         <script src="script.js"></script>
     </body>
 </html>

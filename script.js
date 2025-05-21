@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentMonthNamePensionSpan.textContent = currentMonthName;
     currentMonthWorkdaysSpan.textContent = currentMonthWorkdays;
 
-    currentMonthSalarySpan.textContent = `${currentMonthResults.netSalary.toFixed(2)} DKK (after all deductions)`;
+    currentMonthSalarySpan.textContent = `${currentMonthResults.netSalary.toFixed(2)} DKK`;
     totalCompensationSpan.textContent = `${currentMonthResults.totalGrossSalary.toFixed(2)} DKK (Total hourly rate × 7.4 hours × ${currentMonthWorkdays} workdays)`;
     taxLayerSpan.textContent = `${currentMonthResults.totalTaxes.toFixed(0)} DKK`;
     pensionAmountSpan.textContent = `${currentMonthResults.totalPensionAmount.toFixed(2)} DKK (Your contribution: ${currentMonthResults.employeePensionAmount.toFixed(2)} DKK + Company contribution: ${currentMonthResults.companyPensionAmount.toFixed(2)} DKK)`;
@@ -383,7 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Update previous month displays
     previousMonthNameSpan.textContent = previousMonthName;
     previousMonthWorkdaysSpan.textContent = previousMonthWorkdays;
-    previousMonthSalarySpan.textContent = `${previousMonthResults.netSalary.toFixed(2)} DKK (after all deductions)`;
+    previousMonthSalarySpan.textContent = `${previousMonthResults.netSalary.toFixed(2)} DKK`;
     // Note: We only display the tax layer and pension amount for the current month based on the UI layout
     // If you wanted to show previous month's layer/pension, you would need additional spans in HTML.
 

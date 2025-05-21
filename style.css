@@ -20,7 +20,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 90%;
-    max-width: 500px;
+    max-width: 500px; /* Increased max-width for larger screens */
 }
 
 h1 {
@@ -32,6 +32,7 @@ h1 {
 .input-group {
     margin-bottom: 15px;
     text-align: left;
+    align-self: end;
 }
 
 .input-group label {
@@ -127,6 +128,34 @@ button:hover {
     background-color: #0288d1;
 }
 
+@media (min-width: 768px) {
+    .input-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two columns */
+        gap: 20px; /* Space between columns and rows */
+    }
+
+    /* Adjust input group width within the grid */
+    .input-section .input-group {
+        margin-bottom: 0; /* Remove bottom margin in grid layout */
+    }
+
+    .input-section .input-group label {
+        margin-bottom: 3px; /* Slightly reduce label margin */
+    }
+
+    .input-section .input-group input[type="number"] {
+        width: calc(100% - 20px); /* Adjust width for padding */
+    }
+
+    /* Ensure checkbox group stays together */
+    .input-section .checkbox-group {
+        grid-column: span 2; /* Make checkbox group span both columns */
+        justify-content: center; /* Center checkbox group */
+        margin-top: 10px; /* Add some space above checkbox */
+    }
+}
+
 /* Modal Styles */
 .modal {
     display: none;
@@ -138,6 +167,68 @@ button:hover {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     overflow: auto;
+}
+
+footer {
+    margin-top: 20px; /* Adjust margin to be closer to results */
+    text-align: center;
+    color: #555;
+    font-size: 0.8rem; /* Slightly smaller font */
+    padding-top: 15px; /* Slightly less padding */
+    border-top: 1px solid #eee; /* Lighter border */
+}
+
+footer p {
+    margin: 3px 0; /* Reduce vertical margin for paragraphs */
+    line-height: 1.4; /* Adjust line height */
+}
+
+footer a {
+    color: #0277bd;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 20px 15px; /* Adjust padding for smaller screens */
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .input-group input[type="number"] {
+        width: calc(100% - 20px); /* Adjust for slightly smaller padding */
+    }
+
+    .results h2 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 5% auto;
+        padding: 15px;
+    }
+
+    footer {
+        margin-top: 15px; /* Adjust footer margin for smaller screens */
+        padding-top: 10px;
+    }
+
+    .close-button {
+        font-size: 24px;
+    }
 }
 
 .modal-content {
