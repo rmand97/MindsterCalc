@@ -9,3 +9,5 @@ I tries to tell what you should expect to be paid after taxes.
 
 ## Missing
 - Kommuneskat
+- Danish holidays
+- Paid holidays
