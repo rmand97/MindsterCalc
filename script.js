@@ -194,14 +194,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Danish Tax Constants (2025 values)
   const AM_BIDRAG_RATE = 8; // Labor Market Contribution: 8%
   const PERSONFRADRAG_YEARLY = 51600; // 2025 Personal deduction allowance
-  const PERSONFRADRAG_MONTHLY = 4300; // 2025 Monthly personal deduction
+  const PERSONFRADRAG_MONTHLY = PERSONFRADRAG_YEARLY / 12; // 2025 Monthly personal deduction
   const KIRKESKAT_RATE = 0.8; // Church tax: typically around 0.8%
-  const BESKAEFTIGELSESFRADRAG_RATE = 10.65; // Employment deduction rate (%)
-  const BESKAEFTIGELSESFRADRAG_YEARLY_MAX = 43100; // Maximum yearly employment deduction
+  const BESKAEFTIGELSESFRADRAG_RATE = 12.3; // Employment deduction rate (%)
+  const BESKAEFTIGELSESFRADRAG_YEARLY_MAX = 55600; // Maximum yearly employment deduction
   const BESKAEFTIGELSESFRADRAG_MONTHLY_MAX =
     BESKAEFTIGELSESFRADRAG_YEARLY_MAX / 12; // Maximum monthly employment deduction
   const JOBFRADRAG_RATE = 4.5; // Job deduction rate (%)
-  const JOBFRADRAG_YEARLY_MAX = 2700; // Maximum yearly job deduction
+  const JOBFRADRAG_YEARLY_MAX = 2900; // Maximum yearly job deduction
   const JOBFRADRAG_MONTHLY_MAX = JOBFRADRAG_YEARLY_MAX / 12; // Maximum monthly job deduction
 
   // Helper function to calculate for a given month and year
