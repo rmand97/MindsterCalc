@@ -11,38 +11,41 @@
             <h1>Mindster Salary Calculator</h1>
 
             <div class="input-section">
-            <div class="input-group">
-                <label for="hourlyRate"
-                    >Total Hourly Rate (DKK, includes company pension)</label
-                >
-                <input type="number" id="hourlyRate" value="0" />
-            </div>
+                <div class="input-group">
+                    <label for="hourlyRate"
+                        >Total Hourly Rate (DKK, includes company
+                        pension)</label
+                    >
+                    <input type="number" id="hourlyRate" value="0" />
+                </div>
 
-            <div class="input-group">
-                <label for="pensionPercent"
-                    >Employee Pension Contribution (%)</label
-                >
-                <input type="number" id="pensionPercent" value="0" />
-            </div>
+                <div class="input-group">
+                    <label for="pensionPercent"
+                        >Employee Pension Contribution (%)</label
+                    >
+                    <input type="number" id="pensionPercent" value="0" />
+                </div>
 
+                <div class="input-group">
+                    <label for="taxPercent">Tax Rate (%)</label>
+                    <input type="number" id="taxPercent" value="0" />
+                </div>
 
-            <div class="input-group">
-                <label for="taxPercent">Tax Rate (%)</label>
-                <input type="number" id="taxPercent" value="0" />
-            </div>
+                <div class="input-group">
+                    <label for="companyPensionPercent"
+                        >Company Pension Contribution (%)</label
+                    >
+                    <input type="number" id="companyPensionPercent" value="0" />
+                </div>
 
-            <div class="input-group">
-                <label for="companyPensionPercent"
-                    >Company Pension Contribution (%)</label
-                >
-                <input type="number" id="companyPensionPercent" value="0" />
+                <div class="input-group checkbox-group">
+                    <input type="checkbox" id="churchTaxEnabled" checked />
+                    <label for="churchTaxEnabled"
+                        >Include Church Tax (0.8%)</label
+                    >
+                </div>
             </div>
-
-            <div class="input-group checkbox-group">
-                <input type="checkbox" id="churchTaxEnabled" checked />
-                <label for="churchTaxEnabled">Include Church Tax (0.8%)</label>
-            </div>
-            </div> <!-- Close input-section -->
+            <!-- Close input-section -->
 
             <div class="results">
                 <h2 style="display: flex; align-items: center; gap: 0.5rem">
@@ -55,46 +58,75 @@
                         ?
                     </button>
                 </h2>
-                <p>
-                    Total Monthly Gross:
-                    <span id="totalCompensation">-</span>
-                </p>
-                <p>
-                    Expected Net Salary for
-                    <span id="currentMonthName"></span> (<span
-                        id="currentMonthWorkdays"
-                        >-</span
-                    >
-                    workdays):
-                    <span id="currentMonthSalary">-</span>
-                </p>
-                <p>
-                    Expected Net Salary for
-                    <span id="previousMonthName"></span>
-                    (<span id="previousMonthWorkdays">-</span> workdays):
-                    <span id="previousMonthSalary">-</span>
-                </p>
-                <p>
-                    Total Tax (<span id="currentMonthNameTax"></span>):
-                    <span id="taxLayer">-</span>
-                </p>
-                <p>
-                    Pension Contribution (<span
-                        id="currentMonthNamePension"
-                    ></span
-                    >):
-                    <span id="pensionAmount">-</span>
-                </p>
-            </ul>
+                <div class="result-row">
+                    <div class="result-label">Total Monthly Gross:</div>
+                    <div class="result-value">
+                        <span class="number-value" id="totalCompensation"
+                            >-</span
+                        >
+                    </div>
+                </div>
+                <div class="result-row">
+                    <div class="result-label">
+                        Expected Net Salary for
+                        <span id="currentMonthName"></span> (<span
+                            id="currentMonthWorkdays"
+                            >-</span
+                        >
+                        workdays):
+                    </div>
+                    <div class="result-value">
+                        <span class="number-value" id="currentMonthSalary"
+                            >-</span
+                        >
+                    </div>
+                </div>
+                <div class="result-row">
+                    <div class="result-label">
+                        Expected Net Salary for
+                        <span id="previousMonthName"></span>
+                        (<span id="previousMonthWorkdays">-</span> workdays):
+                    </div>
+                    <div class="result-value">
+                        <span class="number-value" id="previousMonthSalary"
+                            >-</span
+                        >
+                    </div>
+                </div>
+                <div class="result-row">
+                    <div class="result-label">
+                        Total Tax (<span id="currentMonthNameTax"></span>):
+                    </div>
+                    <div class="result-value">
+                        <span class="number-value" id="taxLayer">-</span>
+                    </div>
+                </div>
+                <div class="result-row">
+                    <div class="result-label">
+                        Pension Contribution (<span
+                            id="currentMonthNamePension"
+                        ></span
+                        >):
+                    </div>
+                    <div class="result-value">
+                        <span class="number-value" id="pensionAmount">-</span>
+                    </div>
+                </div>
+            </div>
             <footer>
                 <p>Made by: Rolf Malthe Andersen</p>
                 <p>Contact: rolf.m.andersen@twoday.com</p>
-                <p><a href="https://github.com/rmand97/MindsterCalc" target="_blank">GitHub</a></p>
+                <p>
+                    <a
+                        href="https://github.com/rmand97/MindsterCalc"
+                        target="_blank"
+                        >GitHub</a
+                    >
+                </p>
             </footer>
         </div>
-    </div>
 
-    <!-- Modal for calculation explanation -->
+        <!-- Modal for calculation explanation -->
         <div id="explanationModal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>
@@ -107,17 +139,15 @@
                     </p>
                     <ul>
                         <li>
-                            Working days: <span id="modalWorkdays">0</span> days
-                            this month (weekdays only)
+                            Working days: <span id="modalWorkdays">0 days</span>
                         </li>
-                        <li>Standard Danish workday: 7.4 hours</li>
                         <li>
                             Your hourly rate:
-                            <span id="modalHourlyRate">0</span> DKK
+                            <span id="modalHourlyRate">0 DKK</span>
                         </li>
                         <li>
                             Total gross before deductions:
-                            <span id="modalTotalGross">0</span> DKK
+                            <span id="modalTotalGross">0 DKK</span>
                         </li>
                     </ul>
 
@@ -129,12 +159,11 @@
                         <li>This is part of your total compensation package</li>
                         <li>
                             Company pension:
-                            <span id="modalCompanyPension">0</span>% =
-                            <span id="modalCompanyPensionAmount">0</span> DKK
+                            <span id="modalCompanyPensionAmount">0 DKK</span>
                         </li>
                         <li>
                             Gross salary after company pension:
-                            <span id="modalRemainingGross">0</span> DKK
+                            <span id="modalRemainingGross">0 DKK</span>
                         </li>
                     </ul>
 
@@ -144,8 +173,8 @@
                     </p>
                     <ul>
                         <li>
-                            AM-bidrag: 8% of gross salary =
-                            <span id="modalAMBidrag">0</span> DKK
+                            AM-bidrag (8% of gross salary):
+                            <span id="modalAMBidrag">0 DKK</span>
                         </li>
                     </ul>
 
@@ -156,12 +185,11 @@
                     <ul>
                         <li>
                             Employee pension:
-                            <span id="modalEmployeePension">0</span>% =
-                            <span id="modalEmployeePensionAmount">0</span> DKK
+                            <span id="modalEmployeePensionAmount">0 DKK</span>
                         </li>
                         <li>
                             Taxable income (after AM-bidrag and pension):
-                            <span id="modalTaxableIncome">0</span> DKK
+                            <span id="modalTaxableIncome">0 DKK</span>
                         </li>
                     </ul>
 
@@ -184,9 +212,9 @@
                     <p><strong>Step 6:</strong> Calculate taxes</p>
                     <ul>
                         <li>
-                            Income tax rate: <span id="modalTaxRate">37</span>%
+                            Income tax rate: <span id="modalTaxRate">37 %</span>
                         </li>
-                        <li id="modalChurchTaxItem">Church tax: 0.8%</li>
+                        <li id="modalChurchTaxItem">Church tax: <span id="modalChurchTaxRate">0.8 %</span></li>
                     </ul>
 
                     <p>
@@ -196,35 +224,32 @@
                     <ul>
                         <li>
                             Tax savings from Personfradrag:
-                            <span id="modalPersonfradragValue">0</span> DKK
+                            <span id="modalPersonfradragValue">0 DKK</span>
                         </li>
                         <li>
                             Tax savings from Beskæftigelsesfradrag:
-                            <span id="modalBeskaeftigelsesfradragValue">0</span>
-                            DKK
+                            <span id="modalBeskaeftigelsesfradragValue">0 DKK</span>
                         </li>
                         <li>
                             Tax savings from Jobfradrag:
-                            <span id="modalJobfradragValue">0</span> DKK
+                            <span id="modalJobfradragValue">0 DKK</span>
                         </li>
                     </ul>
 
                     <p><strong>Step 8:</strong> Calculate final net salary</p>
                     <ul>
                         <li>
-                            Total taxes: <span id="modalTotalTaxes">0</span> DKK
+                            Total taxes: <span id="modalTotalTaxes">0 DKK</span>
                         </li>
                         <li>
                             Net salary (take-home pay):
-                            <span id="modalNetSalary">0</span> DKK
+                            <span id="modalNetSalary">0 DKK</span>
                         </li>
                     </ul>
                 </div>
             </div>
-    </div>
+        </div>
 
-    <!-- Modal for calculation explanation -->
-        <div id="explanationModal" class="modal">
         <script src="script.js"></script>
     </body>
 </html>

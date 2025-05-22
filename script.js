@@ -37,12 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalWorkdays = document.getElementById("modalWorkdays");
   const modalHourlyRate = document.getElementById("modalHourlyRate");
   const modalTotalGross = document.getElementById("modalTotalGross");
-  const modalCompanyPension = document.getElementById("modalCompanyPension");
   const modalCompanyPensionAmount = document.getElementById(
     "modalCompanyPensionAmount",
   );
   const modalRemainingGross = document.getElementById("modalRemainingGross");
-  const modalEmployeePension = document.getElementById("modalEmployeePension");
   const modalEmployeePensionAmount = document.getElementById(
     "modalEmployeePensionAmount",
   );
@@ -360,9 +358,9 @@ document.addEventListener("DOMContentLoaded", () => {
     currentMonthWorkdaysSpan.textContent = currentMonthWorkdays;
 
     currentMonthSalarySpan.textContent = `${currentMonthResults.netSalary.toFixed(2)} DKK`;
-    totalCompensationSpan.textContent = `${currentMonthResults.totalGrossSalary.toFixed(2)} DKK (Total hourly rate × 7.4 hours × ${currentMonthWorkdays} workdays)`;
+    totalCompensationSpan.textContent = `${currentMonthResults.totalGrossSalary.toFixed(2)} DKK`;
     taxLayerSpan.textContent = `${currentMonthResults.totalTaxes.toFixed(0)} DKK`;
-    pensionAmountSpan.textContent = `${currentMonthResults.totalPensionAmount.toFixed(2)} DKK (Your contribution: ${currentMonthResults.employeePensionAmount.toFixed(2)} DKK + Company contribution: ${currentMonthResults.companyPensionAmount.toFixed(2)} DKK)`;
+    pensionAmountSpan.textContent = `${currentMonthResults.totalPensionAmount.toFixed(2)} DKK`;
 
     // Previous Month Calculation
     const previousMonthDate = new Date(
@@ -412,37 +410,47 @@ document.addEventListener("DOMContentLoaded", () => {
     const calculation = calculateMonth(currentYear, currentMonth);
 
     // Update all modal values with current calculation
-    modalWorkdays.textContent = calculation.workdays;
-    modalHourlyRate.textContent = calculation.hourlyRate.toFixed(2);
-    modalTotalGross.textContent = calculation.totalGrossSalary.toFixed(2);
-    modalCompanyPension.textContent = calculation.companyPensionPercent;
+    modalWorkdays.textContent = `${calculation.workdays} days`;
+    modalHourlyRate.textContent = `${calculation.hourlyRate.toFixed(2)} DKK`;
+    modalTotalGross.textContent = `${calculation.totalGrossSalary.toFixed(2)} DKK`;
     modalCompanyPensionAmount.textContent =
-      calculation.companyPensionAmount.toFixed(2);
-    modalRemainingGross.textContent = calculation.grossSalary.toFixed(2);
-    modalEmployeePension.textContent = calculation.employeePensionPercent;
+      `${calculation.companyPensionAmount.toFixed(2)} DKK`;
+    modalRemainingGross.textContent = `${calculation.grossSalary.toFixed(2)} DKK`;
     modalEmployeePensionAmount.textContent =
-      calculation.employeePensionAmount.toFixed(2);
-    modalAMBidrag.textContent = calculation.amBidrag.toFixed(2);
-    modalTaxableIncome.textContent = calculation.taxableIncome.toFixed(2);
-    modalTaxRate.textContent = calculation.taxRate;
+      `${calculation.employeePensionAmount.toFixed(2)} DKK`;
+    modalAMBidrag.textContent = `${calculation.amBidrag.toFixed(2)} DKK`;
+    modalTaxableIncome.textContent = `${calculation.taxableIncome.toFixed(2)} DKK`;
+    modalTaxRate.textContent = `${calculation.taxRate} %`;
 
     // Show or hide church tax based on checkbox
     if (calculation.isChurchTaxEnabled) {
       modalChurchTaxItem.style.display = "list-item";
-      modalChurchTaxItem.textContent = `Church tax: 0.8% = ${calculation.kirkeskat.toFixed(2)} DKK`;
+      
+      // If the element structure doesn't exist yet, create it
+      if (modalChurchTaxItem.innerHTML.indexOf('modalChurchTaxAmount') === -1) {
+        modalChurchTaxItem.innerHTML = `Church tax: <span id="modalChurchTaxRate">0.8 %</span> = <span id="modalChurchTaxAmount">0 DKK</span>`;
+      }
+      
+      // Get references to the span elements
+      const modalChurchTaxRateElement = document.getElementById("modalChurchTaxRate");
+      const modalChurchTaxAmountElement = document.getElementById("modalChurchTaxAmount");
+      
+      // Update the values in the spans
+      modalChurchTaxRateElement.textContent = "0.8 %";
+      modalChurchTaxAmountElement.textContent = `${calculation.kirkeskat.toFixed(2)} DKK`;
     } else {
       modalChurchTaxItem.style.display = "none";
     }
 
     // Display tax savings from each deduction
     modalPersonfradragValue.textContent =
-      calculation.personfradragSavings.toFixed(2);
+      `${calculation.personfradragSavings.toFixed(2)} DKK`;
     modalBeskaeftigelsesfradragValue.textContent =
-      calculation.beskaeftigelsesfradragTaxValue.toFixed(2);
+      `${calculation.beskaeftigelsesfradragTaxValue.toFixed(2)} DKK`;
     modalJobfradragValue.textContent =
-      calculation.jobfradragTaxValue.toFixed(2);
-    modalTotalTaxes.textContent = calculation.totalTaxes.toFixed(2);
-    modalNetSalary.textContent = calculation.netSalary.toFixed(2);
+      `${calculation.jobfradragTaxValue.toFixed(2)} DKK`;
+    modalTotalTaxes.textContent = `${calculation.totalTaxes.toFixed(2)} DKK`;
+    modalNetSalary.textContent = `${calculation.netSalary.toFixed(2)} DKK`;
   }
 
   // Open modal when info button is clicked
